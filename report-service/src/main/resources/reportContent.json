@@ -1,0 +1,23 @@
+# Insert in MongoDB
+
+  {
+  "_id":1,
+  "customId": "kd001",
+  "bikeId": "B001",
+  "note": "kaputt"
+  }
+
+  {
+  "_id":2,
+  "customId": "kd001",
+  "bikeId": "B003",
+  "note": "schwer kaputt"
+  }
+
+  {
+    "_id":3,
+    "customId": "kd001",
+    "bikeId": "B005",
+    "note": "sehr schwer kaputt"
+  }
+
