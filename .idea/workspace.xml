@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e93d294-c9aa-41c6-a973-0f88c5d6d063" name="Default Changelist" comment="update 14.09.2021">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonus-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/location-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rent-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/report-service/pom.xml" afterDir="false" />
+    <list default="true" id="6e93d294-c9aa-41c6-a973-0f88c5d6d063" name="Default Changelist" comment="update JAR package 14.09.2021">
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +187,7 @@
       <workItem from="1631548111462" duration="686000" />
       <workItem from="1631549180982" duration="547000" />
       <workItem from="1631550042405" duration="1538000" />
-      <workItem from="1631575275446" duration="6570000" />
+      <workItem from="1631575275446" duration="7215000" />
     </task>
     <task id="LOCAL-00001" summary="update 14.09.2021">
       <created>1631584868640</created>
@@ -202,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631584868640</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update JAR package 14.09.2021">
+      <created>1631587425472</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1631587425472</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,6 +223,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update 14.09.2021" />
-    <option name="LAST_COMMIT_MESSAGE" value="update 14.09.2021" />
+    <MESSAGE value="update JAR package 14.09.2021" />
+    <option name="LAST_COMMIT_MESSAGE" value="update JAR package 14.09.2021" />
   </component>
 </project>
