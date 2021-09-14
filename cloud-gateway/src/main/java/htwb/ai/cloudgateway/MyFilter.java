@@ -22,7 +22,8 @@ public class MyFilter extends AbstractGatewayFilterFactory<MyFilter.Config> {
 
     private boolean isAuthorizationValid(String authorizationHeader) {
         //if (authorizationHeader.equals("default-token")) return true;
-        // Logic for checking the value
+        // Logic for checking the value+
+        System.out.println("Func isAuthorizationValid ");
         RestTemplate restTemplate = new RestTemplate();
         String url = baseUrl+":8100/auth/check";
         String response
@@ -45,6 +46,8 @@ public class MyFilter extends AbstractGatewayFilterFactory<MyFilter.Config> {
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
+
+            System.out.println("Request: "+request);
 
             if (!request.getHeaders().containsKey("Authorization")) {
                 return this.onError(exchange, "No Authorization header, no token", HttpStatus.UNAUTHORIZED);

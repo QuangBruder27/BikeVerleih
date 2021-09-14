@@ -3,7 +3,7 @@ package htwb.ai.locationservice.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="location")
+@Table(name="bike_location")
 public class Location {
 
     @Id

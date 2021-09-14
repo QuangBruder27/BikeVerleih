@@ -3,13 +3,12 @@ package htwb.ai.authservice.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="custom")
-public class Custom {
+@Table(name ="customer")
+public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="custom_id")
-    private int custom_id;
+    @Column(name="customer_id")
+    private String customerId;
 
     @Column(name="email")
     private String email;
@@ -20,7 +19,7 @@ public class Custom {
     @Column(name="password")
     private String password;
 
-    public Custom(){}
+    public Customer(){}
 
     public String getEmail() {
         return email;
@@ -46,21 +45,24 @@ public class Custom {
         this.password = password;
     }
 
-    public int getCustom_id() {
-        return custom_id;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustom_id(int custom_id) {
-        this.custom_id = custom_id;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
+    public boolean isAcceptable(){
+        return this.email!= null && !this.email.isEmpty()
+                && this.password != null && !this.password.isEmpty();
+    }
     @Override
     public String toString() {
-        return "Custom{" +
-                "custom_id=" + custom_id +
+        return "Customer{" +
+                "customerId=" + customerId +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }

@@ -42,8 +42,8 @@ public class ReportDAO implements IReportHandler {
     @Override
     public boolean updateReport(Report report) {
         reportRepository.save(report);
-        Report newLyric = reportRepository.findByReportId(report.getReportId());
-        return newLyric.equals(report);
+        Report newReport = reportRepository.findByReportId(report.getReportId());
+        return newReport.equals(report);
     }
 
     @Override

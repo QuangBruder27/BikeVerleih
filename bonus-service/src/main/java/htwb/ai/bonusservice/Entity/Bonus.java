@@ -7,34 +7,34 @@ import javax.persistence.*;
 public class Bonus {
 
     @Id
-    @Column(name = "custom_id")
-    private String customId;
+    @Column(name = "customer_id")
+    private String customerId;
 
     @Column(name = "score")
-    private double score;
+    private Integer score;
 
     public Bonus(){}
 
-    public double getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 
-    public String getCustomId() {
-        return customId;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomId(String customId) {
-        this.customId = customId;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     @Override
     public String toString() {
         return "Bonus{" +
-                "customId='" + customId + '\'' +
+                "customId='" + customerId + '\'' +
                 ", score=" + score +
                 '}';
     }

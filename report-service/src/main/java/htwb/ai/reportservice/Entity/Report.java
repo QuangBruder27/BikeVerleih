@@ -11,7 +11,7 @@ public class Report {
 
     @Id
     private String reportId;
-    private String customId;
+    private String customerId;
     private String bikeId;
     private String note;
     private boolean isSolved;
@@ -20,9 +20,9 @@ public class Report {
 
     public Report(){};
 
-    public Report(String reportId, String customId, String bikeId, String note, boolean isSolved, Binary image) {
+    public Report(String reportId, String customerId, String bikeId, String note, boolean isSolved, Binary image) {
         this.reportId = reportId;
-        this.customId = customId;
+        this.customerId = customerId;
         this.bikeId = bikeId;
         this.note = note;
         this.isSolved = isSolved;
@@ -54,12 +54,12 @@ public class Report {
         isSolved = solved;
     }
 
-    public String getCustomId() {
-        return customId;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomId(String customId) {
-        this.customId = customId;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getBikeId() {
@@ -78,11 +78,18 @@ public class Report {
         this.note = note;
     }
 
+    public boolean isAcceptable(){
+        return (this.bikeId!= null && !this.bikeId.isEmpty()
+                && this.note!=null && !this.note.isEmpty()
+                && this.customerId!=null && !this.customerId.isEmpty());
+    }
+
+
     @Override
     public String toString() {
         return "Report{" +
                 "reportId='" + reportId + '\'' +
-                ", customId='" + customId + '\'' +
+                ", customerId='" + customerId + '\'' +
                 ", bikeId='" + bikeId + '\'' +
                 ", note='" + note + '\'' +
                 ", isSolved=" + isSolved +
@@ -90,11 +97,10 @@ public class Report {
                 '}';
     }
 
-    public boolean acceptable(){
-        return //this.getReportId() != null
-                 !this.getBikeId().isEmpty()
-                && !this.getNote().isEmpty()
-                && !this.getCustomId().isEmpty();
+    public boolean equals(Report that) {
+        return this.reportId.equals(that.reportId)
+                && this.note.equals(that.note)
+                && this.customerId.equals(that.customerId)
+                && this.image.equals(that.image);
     }
-
 }

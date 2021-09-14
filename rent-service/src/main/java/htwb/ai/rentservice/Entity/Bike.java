@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "bike")
+@Table(name = "bike_rent")
 public class Bike {
 
     @Id
@@ -19,7 +19,29 @@ public class Bike {
     @Column(name = "pin")
     private Integer pin;
 
+    @Column(name = "latitude")
+    private String latitude;
+
+    @Column(name = "longtitude")
+    private String longtitude;
+
     public Bike(){};
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongtitude() {
+        return longtitude;
+    }
+
+    public void setLongtitude(String longtitude) {
+        this.longtitude = longtitude;
+    }
 
     public String getBikeId() {
         return bikeId;
@@ -51,7 +73,8 @@ public class Bike {
                 "bikeId='" + bikeId + '\'' +
                 ", status='" + status + '\'' +
                 ", pin=" + pin +
+                ", latitude='" + latitude + '\'' +
+                ", longtitude='" + longtitude + '\'' +
                 '}';
     }
-
 }

@@ -1,4 +1,4 @@
-CREATE TABLE `bikeverleih`.`location` (
+CREATE TABLE `bikeverleih`.`bike_location` (
                                           `id` INT NOT NULL AUTO_INCREMENT,
                                           `bike_id` VARCHAR(45) NOT NULL,
                                           `latitude` VARCHAR(20) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE `bikeverleih`.`location` (
                                           PRIMARY KEY (`id`));
 
 
-INSERT INTO `bikeverleih`.`location`
+INSERT INTO `bikeverleih`.`bike_location`
 (
     `bike_id`,
     `latitude`,
@@ -16,6 +16,32 @@ INSERT INTO `bikeverleih`.`location`
 VALUES
 (
     "B001",
-    "52.50844515668786",
-    "13.481563149994146",
-    "2012-06-18 10:34:09");
+    "52.50343552336937",
+    "13.469401001991985",
+    "2021-09-07 23:34:09");
+
+INSERT INTO `bikeverleih`.`bike_location`
+(
+    `bike_id`,
+    `latitude`,
+    `longtitude`,
+    `time_created`)
+VALUES
+(
+    "B003",
+    "52.50154157556343",
+    "13.478155468056492",
+    "2021-09-07 23:34:09");
+
+INSERT INTO `bikeverleih`.`bike_location`
+(
+    `bike_id`,
+    `latitude`,
+    `longtitude`,
+    `time_created`)
+VALUES
+(
+    "B004",
+    "52.5127799524728",
+    "13.48750826570198",
+    "2021-09-07 23:34:09");

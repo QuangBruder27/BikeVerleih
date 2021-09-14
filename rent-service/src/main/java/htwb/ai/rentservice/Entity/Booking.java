@@ -10,14 +10,14 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "custom_id")
-    private String customId;
+    @Column(name = "customer_id")
+    private String customerId;
 
     @Column(name = "bike_id")
     private String bikeId;
 
-    @Column(name = "start_time")
-    private String startTime;
+    @Column(name = "begin_time")
+    private String beginTime;
 
     @Column(name = "end_time")
     private String endTime;
@@ -29,8 +29,8 @@ public class Booking {
     private String status;
 
 
-    public Booking(String customId, String bikeId, String status) {
-        this.customId = customId;
+    public Booking(String customerId, String bikeId, String status) {
+        this.customerId = customerId;
         this.bikeId = bikeId;
         this.status = status;
     }
@@ -53,12 +53,12 @@ public class Booking {
         this.id = id;
     }
 
-    public String getCustomId() {
-        return customId;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomId(String customId) {
-        this.customId = customId;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getBikeId() {
@@ -69,12 +69,12 @@ public class Booking {
         this.bikeId = bikeId;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getBeginTime() {
+        return beginTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setBeginTime(String beginTime) {
+        this.beginTime = beginTime;
     }
 
     public String getEndTime() {
@@ -93,17 +93,17 @@ public class Booking {
         this.distance = distance;
     }
 
-
     @Override
     public String toString() {
         return "Booking{" +
                 "id=" + id +
-                ", customId='" + customId + '\'' +
+                ", customerId='" + customerId + '\'' +
                 ", bikeId='" + bikeId + '\'' +
-                ", startTime='" + startTime + '\'' +
+                ", beginTime='" + beginTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", distance=" + distance +
                 ", status='" + status + '\'' +
                 '}';
     }
+
 }

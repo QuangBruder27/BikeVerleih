@@ -41,6 +41,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.robolectric</groupId>
+            <artifactId>android-all</artifactId>
+            <version>4.1.2_r1-robolectric-r1</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

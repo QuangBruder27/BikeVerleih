@@ -3,8 +3,10 @@ package htwb.ai.rentservice.Repo;
 import htwb.ai.rentservice.Entity.Booking;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface BookingRepository extends CrudRepository<Booking, Integer> {
-    Booking findBookingByBikeId(String bikeId);
-    Booking findBookingByCustomId(String customId);
-    boolean existsBookingByCustomId(String customId);
+    List<Booking> findBookingByBikeId(String bikeId);
+    List<Booking> findBookingByCustomerId(String customerId);
+    boolean existsBookingByCustomerId(String customerId);
 }

@@ -3,11 +3,10 @@ package htwb.ai.authservice.Controller;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import htwb.ai.authservice.Entity.BikeAuth;
-import htwb.ai.authservice.Entity.Custom;
+import htwb.ai.authservice.Entity.Customer;
 import htwb.ai.authservice.Repo.BikeAuthRepository;
-import htwb.ai.authservice.Repo.CustomRepository;
+import htwb.ai.authservice.Repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -30,10 +30,15 @@ public class AuthController {
     static String baseUrl = "http://localhost";
 
     @Autowired
-    private CustomRepository customRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
     private BikeAuthRepository bikeAuthRepository;
+
+    @GetMapping("/hello")
+    public String helloWorld() {
+        return "HELLO World!!!";
+    }
 
     @GetMapping("/check/{token}")
     public String checkToken(@PathVariable("token") String token) {
@@ -49,7 +54,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/get/bike")
+    @PostMapping("/bikelogin")
     public ResponseEntity getTokenForBike(@RequestParam String bikeId,
                                    @RequestParam String password) {
         if (bikeId.isEmpty() || password.isEmpty()) {
@@ -68,55 +73,68 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/get")
-    public ResponseEntity getTokenForCustom(@RequestParam String email,
-                                   @RequestParam String password) {
-        if (email.isEmpty() || password.isEmpty()) {
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getTokenForCustomer(@RequestBody Customer payloadCustomer) {
+        System.out.println("User: "+payloadCustomer);
+        if (payloadCustomer.getEmail().isEmpty() || payloadCustomer.getPassword().isEmpty()) {
             return ResponseEntity.badRequest().body("Wrong format");
         }
 
-        if (!customRepository.existsCustomByEmail(email)) {
+        if (!customerRepository.existsCustomByEmail(payloadCustomer.getEmail())) {
+            System.out.println("Customer not found");
             return ResponseEntity.status(401).body("User cannot be authenticated");
         } else {
-            Custom custom = customRepository.findCustomByEmail(email);
-            if(custom.getPassword().equals(password)){
-                return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body(generateAuthToken(custom));
+            Customer customer = customerRepository.findCustomByEmail(payloadCustomer.getEmail());
+            if(customer.getPassword().equals(payloadCustomer.getPassword())){
+                Map<String,String> map = new HashMap<>();
+                map.put("token", generateAuthToken(customer));
+                map.put("name",customer.getName());
+                map.put("customerId",String.valueOf(customer.getCustomerId()));
+                return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(map);
             } else {
                 return ResponseEntity.status(401).body("User cannot be authenticated");
             }
         }
     }
 
+    public String createCustomerId(){
+        String randomID = "KD"+ThreadLocalRandom.current().nextInt(1000, 9999 + 1);
+        if (!customerRepository.existsById(randomID)){
+            return  randomID;
+        } else {
+            return createCustomerId();
+        }
+    }
 
-    @PostMapping("/create")
-    public ResponseEntity createCustomAccount(@RequestParam String email,
-                                            @RequestParam String name,
-                                            @RequestParam String password) {
-        if (email.isEmpty() || name.isEmpty() || password.isEmpty()) {
+    @PostMapping("/register")
+    public ResponseEntity createCustomerAccount(@RequestBody Customer payloadCustomer) {
+        System.out.println("Create new account for customer");
+        if (!payloadCustomer.isAcceptable() || payloadCustomer.getName()== null || payloadCustomer.getName().isEmpty()) {
+            System.out.println("Wrong format");
             return ResponseEntity.badRequest().body("Wrong format");
         }
 
-        if (customRepository.existsCustomByEmail(email)) {
+        if (customerRepository.existsCustomByEmail(payloadCustomer.getEmail())) {
+            System.out.println("This email address is already in use.");
             return ResponseEntity.status(401).body("This email address is already in use.");
         } else {
-            Custom custom = new Custom();
-            custom.setEmail(email);
-            custom.setName(name);
-            custom.setPassword(password);
-            Custom newCustom = customRepository.save(custom);
-            if(newCustom != null){
-                // Create bonus account for custom
+            System.out.println("Create customerId");
+            payloadCustomer.setCustomerId(createCustomerId());
+            System.out.println("payloadUser: "+payloadCustomer);
+            Customer newCustomer = customerRepository.save(payloadCustomer);
+            if(newCustomer != null){
+                // Create bonus account for customer
                 RestTemplate restTemplate = new RestTemplate();
                 String url = baseUrl+ ":8200/bonus";
-                //Map<String,String> params = new HashMap<>();
                 MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
 
-                System.out.println("CUSTOM ID = "+newCustom.getCustom_id());
-                parametersMap.add("customId",String.valueOf(newCustom.getCustom_id()));
+                System.out.println("CUSTOMER ID = "+newCustomer.getCustomerId());
+                parametersMap.add("customerId",String.valueOf(newCustomer.getCustomerId()));
                 restTemplate.postForObject(url,parametersMap,String.class);
 
-                return ResponseEntity.status(201).body(newCustom);
+                return ResponseEntity.status(201).body(newCustomer);
             } else {
+                System.out.println("User cannot be authenticated");
                 return ResponseEntity.status(401).body("User cannot be authenticated");
             }
         }
@@ -125,15 +143,15 @@ public class AuthController {
     public static BiMap<String, String> keyStore = HashBiMap.create();
     private static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public static String generateAuthToken(Custom custom) {
-        if(!keyStore.containsKey(custom)) {
-            keyStore.remove(custom);
+    public static String generateAuthToken(Customer customer) {
+        if(!keyStore.containsKey(customer)) {
+            keyStore.remove(customer);
         }
         String jws = Jwts.builder()
-                .setSubject(custom.getEmail())
+                .setSubject(customer.getEmail())
                 //.setExpiration(Date.from(ZonedDateTime.now().plusMinutes(10).toInstant()))
                 .signWith(key).compact();
-        keyStore.put(jws, custom.getEmail());
+        keyStore.put(jws, customer.getEmail());
         return  jws;
     }
 

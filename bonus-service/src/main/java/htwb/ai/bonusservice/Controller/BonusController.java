@@ -16,31 +16,31 @@ public class BonusController {
     private BonusRepository repository;
 
     @GetMapping("/{id}")
-    public ResponseEntity getBonusByCustomId(@PathVariable(value = "id") String customId){
-        System.out.println("GET bonus by customId: "+customId);
-        Bonus  bonus = repository.findByCustomId(customId);
+    public ResponseEntity getBonusByCustomerId(@PathVariable(value = "id") String customerId){
+        System.out.println("GET bonus score by customerId: "+customerId);
+        Bonus  bonus = repository.findByCustomerId(customerId);
         System.out.println("Bonus: "+ bonus);
         if (!bonus.equals(null)){
-            return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body(bonus.toString());
+            return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body(String.valueOf(bonus.getScore()));
         } else {
             return (ResponseEntity) ResponseEntity.notFound();
         }
     }
 
     @PutMapping("")
-    public ResponseEntity updateBonus(@RequestParam String customId,
+    public ResponseEntity updateBonus(@RequestParam String customerId,
                                       @RequestParam String payloadDistance){
         System.out.println(" Put bonus ");
         System.out.println("Distance = "+payloadDistance);
-        if (customId.isEmpty() || !repository.existsById(customId)  ||  payloadDistance == null){
+        if (customerId.isEmpty() || !repository.existsById(customerId)  ||  payloadDistance == null){
             System.out.println("payload error");
             return ResponseEntity.badRequest().body("Failure");
         }
-        Double distance = Double.valueOf(payloadDistance);
-        if (distance>5.0){
-            Bonus bonus =  repository.findByCustomId(customId);
-            double lastScore = bonus.getScore();
-            double newScore = lastScore + (double)Math.round((distance-5.0)*10);
+        Integer distance = Integer.valueOf(payloadDistance);
+        if (distance>5){
+            Bonus bonus =  repository.findByCustomerId(customerId);
+            Integer lastScore = bonus.getScore();
+            Integer newScore = lastScore + ((distance-5)*10);
             bonus.setScore(newScore);
             Bonus newBonus = repository.save(bonus);
             return ResponseEntity.ok().contentType( MediaType.APPLICATION_JSON).body(newBonus);
@@ -50,15 +50,15 @@ public class BonusController {
     }
 
     @PostMapping("")
-    public ResponseEntity insertBonus(@RequestParam String customId){
+    public ResponseEntity createBonusAccount(@RequestParam String customerId){
         System.out.println(" Post bonus ");
-        if (customId.isEmpty() || repository.existsById(customId)){
+        if (customerId.isEmpty() || repository.existsById(customerId)){
             System.out.println("payload error");
             return ResponseEntity.badRequest().body("Failure");
         } else {
             Bonus bonus = new Bonus();
-            bonus.setCustomId(customId);
-            bonus.setScore(0.0);
+            bonus.setCustomerId(customerId);
+            bonus.setScore(0);
             Bonus newBonus = repository.save(bonus);
             return ResponseEntity.ok().contentType( MediaType.APPLICATION_JSON).body(newBonus);
         }

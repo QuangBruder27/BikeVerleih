@@ -71,37 +71,63 @@ public class ReportController {
     /**
      * POST /report
      * Add the new report
-     * @param report the new lyric in Payload
+     * @param
      * @return ResponseEntity with the location of new report in body if successful.
      */
     @PostMapping
-    public ResponseEntity postReport(@RequestParam("bikeId") String bikeId,
-                                     @RequestParam("customId") String customId,
-                                     @RequestParam("note") String note,
-                                     @Param("image") MultipartFile image) throws IOException {
-        System.out.println("post mapping func");
-        Report report = new Report();
-        report.setBikeId(bikeId);
-        report.setCustomId(customId);
-        report.setNote(note);
-        if (image != null && !image.isEmpty()) {
+    public ResponseEntity postReport(@RequestHeader String Authorization,@RequestBody Report payloadReport) {
+        System.out.println("Header: "+Authorization);
+
+        System.out.println("post mapping func: "+payloadReport);
+        if(!payloadReport.isAcceptable()){
+            System.out.println("Not accepted.");
+            return ResponseEntity.badRequest().body("Wrong format");
+        }
+        Report newReport = handler.addReport(payloadReport);
+        if (null != newReport) {
+            System.out.println("success");
+            return ResponseEntity.ok(newReport);
+        } else {
+            System.out.println("add fails");
+            return ResponseEntity.badRequest().body("Adding fails");
+        }
+    }
+
+    @PutMapping(value="/{reportId}")
+    public ResponseEntity uploadImageToReport(@RequestHeader String Authorization,
+                                              @RequestParam("image") MultipartFile image,
+                                              @PathVariable(value="reportId") String id) throws IOException {
+        System.out.println("Header: "+Authorization);
+        System.out.println("uploadImageToReport func");
+        if (image == null || image.isEmpty()) return ResponseEntity.badRequest().body("Wrong format");
+        if (handler.isExisting(id)) {
+            Report newReport = handler.findReportById(id);
+            newReport.setImage(new Binary(BsonBinarySubType.BINARY, image.getBytes()));
+            boolean isSucced = handler.updateReport(newReport);
+            if(isSucced){
+                System.out.println("success");
+                return ResponseEntity.created(URI.create("/report/" + newReport.getReportId())).build();
+            } else {
+                System.out.println("upload Image fails");
+                return ResponseEntity.badRequest().body("upload fails");
+            }
+
+        } else {
+            System.out.println("Not found");
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    //
+    /*
+         if (image != null && !image.isEmpty()) {
             System.out.println("image exists.");
             report.setImage(new Binary(BsonBinarySubType.BINARY, image.getBytes()));
         } else {
             System.out.println("image is empty");
         }
-
-        Report newReport = handler.addReport(report);
-        if (null != newReport) {
-            System.out.println("success");
-            return ResponseEntity.created(URI.create("/report/" + newReport.getReportId())).build();
-        } else {
-            System.out.println("add fails");
-            return ResponseEntity.badRequest().body("Adding fails");
-        }
-
-
-    }
+     */
 
 
 

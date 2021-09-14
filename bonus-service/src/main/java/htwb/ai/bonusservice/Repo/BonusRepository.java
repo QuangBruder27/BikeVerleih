@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BonusRepository extends CrudRepository<Bonus,String> {
-    Bonus findByCustomId(String customId);
+    Bonus findByCustomerId(String customerId);
 }
