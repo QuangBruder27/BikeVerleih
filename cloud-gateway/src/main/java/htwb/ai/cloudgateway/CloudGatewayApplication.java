@@ -20,10 +20,14 @@ public class CloudGatewayApplication {
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder, MyFilter myFilter) {
         System.out.println("Builder: "+builder.toString());
         return builder.routes()
+                .route(r -> r.path("/auth/**")
+                        //.id("auth-service")
+                        .uri(baseUrl+":8100/"))
+
                 .route(r -> r.path("/bonus/**")
                         //Pre and Post Filters provided by Spring Cloud Gateway
                         .filters(f -> f.filter(myFilter.apply(new MyFilter.Config())))
-                        .uri(baseUrl+":8200/bonus/KD0001"))
+                        .uri(baseUrl+":8200/"))
                         //.id("bonus-service")
 
                 .route(r -> r.path("/rent/**")
@@ -39,9 +43,7 @@ public class CloudGatewayApplication {
                         //.id("location-service")
                         .uri(baseUrl+":8500/"))
 
-                .route(r -> r.path("/auth/**")
-                        //.id("auth-service")
-                        .uri(baseUrl+":8100/"))
+
 
                 .build();
     }

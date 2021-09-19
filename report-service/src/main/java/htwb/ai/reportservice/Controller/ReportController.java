@@ -39,10 +39,11 @@ public class ReportController {
 
     /**
      * GET /report/id
-     * @param id the index of the lyric
+     * @param id the index of the report
      * @return ResponseEntity with the  specified report in body if successful
      * @throws IOException
      */
+    /*
     @GetMapping(value="/{reportId}")
     public ResponseEntity<Report> getReportbyId(
             @PathVariable(value="reportId") String id) throws IOException {
@@ -52,12 +53,15 @@ public class ReportController {
         return ResponseEntity.notFound().eTag("Report not found").build();
     }
 
+     */
+
     /**
      * DELETE /report/id
      * remove the specified report
      * @param id
      * @return ResponseEntity
      */
+    /*
     @DeleteMapping(value="/{id}")
     public ResponseEntity deleteReport(@PathVariable("id") ObjectId id) {
         System.out.println("delete Report func");
@@ -68,6 +72,8 @@ public class ReportController {
         }
     }
 
+     */
+
     /**
      * POST /report
      * Add the new report
@@ -75,8 +81,9 @@ public class ReportController {
      * @return ResponseEntity with the location of new report in body if successful.
      */
     @PostMapping
-    public ResponseEntity postReport(@RequestHeader String Authorization,@RequestBody Report payloadReport) {
-        System.out.println("Header: "+Authorization);
+    public ResponseEntity postReport(@RequestHeader String currentId,@RequestBody Report payloadReport) {
+        if(!currentId.equals(payloadReport.getCustomerId()))
+            return ResponseEntity.badRequest().body("Customer Id mismatch");
 
         System.out.println("post mapping func: "+payloadReport);
         if(!payloadReport.isAcceptable()){
@@ -93,6 +100,8 @@ public class ReportController {
         }
     }
 
+
+    /*
     @PutMapping(value="/{reportId}")
     public ResponseEntity uploadImageToReport(@RequestHeader String Authorization,
                                               @RequestParam("image") MultipartFile image,
@@ -118,15 +127,6 @@ public class ReportController {
         }
     }
 
-
-    //
-    /*
-         if (image != null && !image.isEmpty()) {
-            System.out.println("image exists.");
-            report.setImage(new Binary(BsonBinarySubType.BINARY, image.getBytes()));
-        } else {
-            System.out.println("image is empty");
-        }
      */
 
 

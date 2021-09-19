@@ -72,6 +72,13 @@ public class Location {
         this.bikeId = bikeId;
     }
 
+    public boolean isAcceptable(){
+        return null!= this.bikeId && !this.bikeId.isEmpty()
+                && null !=this.latitude && !this.latitude.isEmpty()
+                && null != this.longtitude && !this.longtitude.isEmpty()
+                && null != this.timeCreated && !this.timeCreated.isEmpty();
+    }
+
     @Override
     public String toString() {
         return "Location{" +

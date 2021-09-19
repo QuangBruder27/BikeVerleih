@@ -6,6 +6,7 @@ import htwb.ai.authservice.Entity.BikeAuth;
 import htwb.ai.authservice.Entity.Customer;
 import htwb.ai.authservice.Repo.BikeAuthRepository;
 import htwb.ai.authservice.Repo.CustomerRepository;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class AuthController {
         if (keyStore.containsKey(token)){
             return keyStore.get(token);
         } else {
-            return "invaild";
+            return "invalid";
         }
     }
 
@@ -116,7 +117,7 @@ public class AuthController {
 
         if (customerRepository.existsCustomByEmail(payloadCustomer.getEmail())) {
             System.out.println("This email address is already in use.");
-            return ResponseEntity.status(401).body("This email address is already in use.");
+            return ResponseEntity.status(Response.SC_CONFLICT).body("This email address is already in use.");
         } else {
             System.out.println("Create customerId");
             payloadCustomer.setCustomerId(createCustomerId());
@@ -130,12 +131,18 @@ public class AuthController {
 
                 System.out.println("CUSTOMER ID = "+newCustomer.getCustomerId());
                 parametersMap.add("customerId",String.valueOf(newCustomer.getCustomerId()));
-                restTemplate.postForObject(url,parametersMap,String.class);
 
-                return ResponseEntity.status(201).body(newCustomer);
+                String response = restTemplate.postForObject(url,parametersMap,String.class);
+
+                Map<String,String> map = new HashMap<>();
+                map.put("token", generateAuthToken(newCustomer));
+                map.put("name",newCustomer.getName());
+                map.put("customerId",String.valueOf(newCustomer.getCustomerId()));
+                return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(map);
+
             } else {
                 System.out.println("User cannot be authenticated");
-                return ResponseEntity.status(401).body("User cannot be authenticated");
+                return ResponseEntity.status(Response.SC_UNAUTHORIZED).body("User cannot be authenticated");
             }
         }
     }
@@ -148,10 +155,10 @@ public class AuthController {
             keyStore.remove(customer);
         }
         String jws = Jwts.builder()
-                .setSubject(customer.getEmail())
+                .setSubject(customer.getCustomerId())
                 //.setExpiration(Date.from(ZonedDateTime.now().plusMinutes(10).toInstant()))
                 .signWith(key).compact();
-        keyStore.put(jws, customer.getEmail());
+        keyStore.put(jws, customer.getCustomerId());
         return  jws;
     }
 

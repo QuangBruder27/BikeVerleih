@@ -18,7 +18,7 @@ public class MyFilter extends AbstractGatewayFilterFactory<MyFilter.Config> {
         super(Config.class);
     }
 
-    String currentUserId;
+    String currentId;
 
     private boolean isAuthorizationValid(String authorizationHeader) {
         //if (authorizationHeader.equals("default-token")) return true;
@@ -28,10 +28,12 @@ public class MyFilter extends AbstractGatewayFilterFactory<MyFilter.Config> {
         String url = baseUrl+":8100/auth/check";
         String response
                 = restTemplate.getForObject(url+"/"+authorizationHeader, String.class);
-        if (response.equals("invaild")){
+        if (response.equals("invalid")){
+            System.out.println("isAuthValid: Access denied");
             return false;
         } else {
-            currentUserId = response;
+            System.out.println("isAuthValid: True: "+response   );
+            currentId = response;
             return true;
         }
     }
@@ -46,21 +48,21 @@ public class MyFilter extends AbstractGatewayFilterFactory<MyFilter.Config> {
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
-
             System.out.println("Request: "+request);
 
             if (!request.getHeaders().containsKey("Authorization")) {
+                System.out.println("No Authorization header, no token");
                 return this.onError(exchange, "No Authorization header, no token", HttpStatus.UNAUTHORIZED);
             };
 
             String token = request.getHeaders().get("Authorization").get(0);
 
             if (!this.isAuthorizationValid(token)) {
+                System.out.println("Invalid token");
                 return this.onError(exchange, "Invalid token", HttpStatus.UNAUTHORIZED);
             }
             ServerHttpRequest modifiedRequest = exchange.getRequest().mutate().
-                    header("currentUserId", currentUserId).
-                    build();
+                    header("currentId", currentId).build();
 
             return chain.filter(exchange.mutate().request(modifiedRequest).build());
         };

@@ -4,8 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e93d294-c9aa-41c6-a973-0f88c5d6d063" name="Default Changelist" comment="update JAR package 14.09.2021">
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/resources/application.properties" afterDir="false" />
+    <list default="true" id="6e93d294-c9aa-41c6-a973-0f88c5d6d063" name="Default Changelist" comment="update Auth-Service Properties">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/htwb/ai/authservice/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/htwb/ai/authservice/Controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bonus-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bonus-service/src/main/java/htwb/ai/bonusservice/Controller/BonusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/src/main/java/htwb/ai/bonusservice/Controller/BonusController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bonus-service/src/main/java/htwb/ai/bonusservice/Entity/Bonus.java" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/src/main/java/htwb/ai/bonusservice/Entity/Bonus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-gateway/src/main/java/htwb/ai/cloudgateway/CloudGatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-gateway/src/main/java/htwb/ai/cloudgateway/CloudGatewayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-gateway/src/main/java/htwb/ai/cloudgateway/MyFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-gateway/src/main/java/htwb/ai/cloudgateway/MyFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/location-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/location-service/src/main/java/htwb/ai/locationservice/Controller/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/src/main/java/htwb/ai/locationservice/Controller/LocationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/location-service/src/main/java/htwb/ai/locationservice/Entity/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/src/main/java/htwb/ai/locationservice/Entity/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rent-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Controller/RentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Controller/RentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Entity/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Entity/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/report-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report-service/src/main/java/htwb/ai/reportservice/Controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/report-service/src/main/java/htwb/ai/reportservice/Controller/ReportController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +204,9 @@
       <workItem from="1631548111462" duration="686000" />
       <workItem from="1631549180982" duration="547000" />
       <workItem from="1631550042405" duration="1538000" />
-      <workItem from="1631575275446" duration="7215000" />
+      <workItem from="1631575275446" duration="14814000" />
+      <workItem from="1631614340003" duration="51157000" />
+      <workItem from="1631861577974" duration="634000" />
     </task>
     <task id="LOCAL-00001" summary="update 14.09.2021">
       <created>1631584868640</created>
@@ -203,7 +222,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631587425472</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update Auth-Service Properties">
+      <created>1631588086756</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1631588086756</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,6 +250,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update 14.09.2021" />
     <MESSAGE value="update JAR package 14.09.2021" />
-    <option name="LAST_COMMIT_MESSAGE" value="update JAR package 14.09.2021" />
+    <MESSAGE value="update Auth-Service Properties" />
+    <option name="LAST_COMMIT_MESSAGE" value="update Auth-Service Properties" />
   </component>
 </project>

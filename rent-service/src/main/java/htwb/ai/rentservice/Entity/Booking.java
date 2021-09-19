@@ -93,6 +93,11 @@ public class Booking {
         this.distance = distance;
     }
 
+    public boolean isAcceptable(){
+        return this.distance!=null && !this.endTime.isEmpty()
+                && !this.bikeId.isEmpty() && this.id!=null;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +

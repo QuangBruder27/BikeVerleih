@@ -34,7 +34,7 @@ public class Bonus {
     @Override
     public String toString() {
         return "Bonus{" +
-                "customId='" + customerId + '\'' +
+                "customerId='" + customerId + '\'' +
                 ", score=" + score +
                 '}';
     }

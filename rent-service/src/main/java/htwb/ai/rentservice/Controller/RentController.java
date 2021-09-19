@@ -5,16 +5,21 @@ import htwb.ai.rentservice.Entity.Bike;
 import htwb.ai.rentservice.Entity.Booking;
 import htwb.ai.rentservice.Repo.BikeRepository;
 import htwb.ai.rentservice.Repo.BookingRepository;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import android.location.Location;
+import org.springframework.web.client.RestTemplate;
+
+import javax.ws.rs.HeaderParam;
 
 import static htwb.ai.rentservice.Helper.*;
 
@@ -29,8 +34,7 @@ public class RentController {
     private BikeRepository bikeRepository;
 
     @PostMapping("/locatebike")
-    public ResponseEntity getBikeLocation(@RequestParam String latitude,
-                                          @RequestParam String longtitude){
+    public ResponseEntity getAvailableBikeLocation(@RequestParam String latitude, @RequestParam String longtitude){
         System.out.println("GET bike location for user with gps:"+ latitude+", "+longtitude);
         List<Bike> listOfAllBikes = Lists.newArrayList(bikeRepository.findAll());
         for (Bike bike: listOfAllBikes){
@@ -63,7 +67,7 @@ public class RentController {
         return 99.99;
     }
 
-
+    /*
     @GetMapping("/{id}")
     public ResponseEntity getBookingById(@PathVariable(value = "id") Integer id){
         System.out.println("GET booking by id: "+ id);
@@ -76,10 +80,14 @@ public class RentController {
         }
     }
 
+     */
+
 
     @PostMapping("/create")
-    public ResponseEntity createBooking(@RequestHeader String Authorization,@RequestBody Booking payloadBooking){
-        System.out.println("Header: "+Authorization);
+    public ResponseEntity createBooking(@RequestHeader String currentId,@RequestBody Booking payloadBooking){
+        System.out.println("Header: "+currentId);
+        if(!currentId.equals(payloadBooking.getCustomerId()))
+            return ResponseEntity.badRequest().body("Customer Id mismatch");
 
         String bikeId = payloadBooking.getBikeId();
         String customerId = payloadBooking.getCustomerId();
@@ -104,7 +112,7 @@ public class RentController {
                     .filter(x-> !(x.getStatus().equals(BKG_STATUS_COMPLETED))).collect(Collectors.toList());
             if (actualBooking.size()>0){
                 System.out.println("You can only reserve one bike");
-                return ResponseEntity.badRequest().body("You can only reserve one bike ");
+                return ResponseEntity.status(Response.SC_NOT_ACCEPTABLE).body("You can only reserve one bike ");
             }
         }
         if (bike.getStatus().equals(BIKE_STATUS_AVAILABLE)){
@@ -117,6 +125,7 @@ public class RentController {
 
             // create booking
             Booking booking = new Booking(customerId,bikeId,BKG_STATUS_RESERVED);
+            booking.setBeginTime(simpleDateFormat.format(new Timestamp(System.currentTimeMillis())));
             Booking newBooking = bookingRepository.save(booking);
             return ResponseEntity.ok().contentType( MediaType.TEXT_PLAIN).body(String.valueOf(randomNum));
         } else {
@@ -125,43 +134,52 @@ public class RentController {
         }
     }
 
-    @GetMapping("/check")
-    public ResponseEntity checkPin(@RequestParam String bikeId,
-                                       @RequestParam Integer pin){
-        System.out.println("GET SERVICE: Ceck pin for bike id: "+ bikeId+",with pin: "+pin);
+    @GetMapping("/pincheck")
+    public ResponseEntity checkPin(@RequestHeader String currentId, @RequestParam String bikeId,
+                                       @RequestParam String payloadPin){
+        System.out.println("GET SERVICE: Check pin for bike id: "+ bikeId+",with pin: "+payloadPin);
         if(!bikeRepository.existsById(bikeId)){
             return  ResponseEntity.notFound().build();
         }
+        if (!currentId.equals(bikeId)) return ResponseEntity.badRequest().body("Bike Id mismatch");
         Bike bike = bikeRepository.findById(bikeId).get();
         if (!bike.getStatus().equals(BIKE_STATUS_RESERVED)){
             return ResponseEntity.badRequest().body("This bike is not yet reserved ");
         }
-        if (bike.getPin().equals(pin)){
-            return  ResponseEntity.accepted().build();
+        if (bike.getPin().toString().equals(payloadPin)){
+            Booking booking = bookingRepository.findBookingByBikeId(bike.getBikeId())
+                    .stream().filter(x-> x.getStatus().equals("reserved")).collect(Collectors.toList()).get(0);
+            if (booking !=null){
+                return  ResponseEntity.ok(booking.getId().toString());
+            } else {
+                return ResponseEntity.badRequest().body("Failure ");
+            }
+
         } else {
             return ResponseEntity.badRequest().body("Wrong pin");
         }
     }
 
-    @PutMapping("/start")
-    public ResponseEntity startRoute(@RequestParam String bikeId,
-                                     @RequestParam Integer bookingId,
-                                     @RequestParam String beginTime){
-        System.out.println("PUT SERVICE:Start the route: "+ bookingId+",with bike: "+bikeId);
-        if(beginTime.isEmpty() || bikeId.isEmpty() || bookingId==null
-                || !bookingRepository.existsById(bookingId) || !bikeRepository.existsById(bikeId)){
-            return  ResponseEntity.notFound().build();
+    @PutMapping("/updatebikelocation")
+    public ResponseEntity updateBikeLocation(@HeaderParam("currentId") String currentId,
+                                             @RequestParam String bikeId,
+                                             @RequestParam String latitude,
+                                             @RequestParam String longtitude){
+        if (null != currentId)  return ResponseEntity.status(Response.SC_METHOD_NOT_ALLOWED).build();
+
+        System.out.println("Update Bike Location: "+ latitude+","+longtitude);
+        if(latitude.isEmpty() || longtitude.isEmpty() || bikeId.isEmpty()){
+            return ResponseEntity.badRequest().body("Failure");
         }
-        Booking booking =bookingRepository.findById(bookingId).get();
-        if (!booking.getBikeId().equals(bikeId)){
+        if (!bikeRepository.existsById(bikeId)){
             return ResponseEntity.badRequest().body("Wrong bike id");
         }
+        Bike bike = bikeRepository.findById(bikeId).get();
+        bike.setLatitude(latitude);
+        bike.setLongtitude(longtitude);
+        Bike newBike = bikeRepository.save(bike);
 
-        booking.setStatus(BKG_STATUS_RUNNING);
-        booking.setBeginTime(beginTime);
-        Booking newBooking = bookingRepository.save(booking);
-
-        if (newBooking != null){
+        if (newBike != null){
             return  ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().body("Failure");
@@ -169,40 +187,44 @@ public class RentController {
     }
 
     @PutMapping("/end")
-    public ResponseEntity endRoute(@RequestParam String bikeId,
-                                   @RequestParam Integer bookingId,
-                                   @RequestParam String endTime,
-                                   @RequestParam Integer distance){
-        System.out.println("PUT SERVICE:Start the route: "+ bookingId+",with bike: "+bikeId);
-        if(distance==null ||endTime.isEmpty() || bikeId.isEmpty() || bookingId==null
-                || !bookingRepository.existsById(bookingId) || !bikeRepository.existsById(bikeId)){
+    public ResponseEntity endRoute(@RequestHeader String currentId,
+                                   @RequestBody Booking payloadBooking){
+        System.out.println("PUT SERVICE:End the route: "+ payloadBooking);
+        System.out.println();
+        if(!payloadBooking.isAcceptable()
+                || !bookingRepository.existsById(payloadBooking.getId())
+                || !bikeRepository.existsById(payloadBooking.getBikeId())){
             return  ResponseEntity.notFound().build();
         }
-        Booking booking =bookingRepository.findById(bookingId).get();
-        if (!booking.getBikeId().equals(bikeId)){
-            return ResponseEntity.badRequest().body("Wrong bike id");
-        }
+
+        if(!currentId.equals(payloadBooking.getBikeId()))
+            return ResponseEntity.badRequest().body("Bike Id mismatch");
+
+        Booking booking = bookingRepository.findById(payloadBooking.getId()).get();
 
         booking.setStatus(BKG_STATUS_COMPLETED);
-        booking.setEndTime(endTime);
-        booking.setDistance(distance);
+        booking.setEndTime(payloadBooking.getEndTime());
+        booking.setDistance(Integer.valueOf(payloadBooking.getDistance()));
         Booking newBooking = bookingRepository.save(booking);
 
-        Bike bike = bikeRepository.findById(bikeId).get();
+        Bike bike = bikeRepository.findById(payloadBooking.getBikeId()).get();
         bike.setStatus(BIKE_STATUS_AVAILABLE);
-        bike.setPin(null);
+        bike.setPin(0);
         Bike newBike = bikeRepository.save(bike);
 
         if (newBooking != null && newBike!= null){
-            return  ResponseEntity.ok().build();
+            addBonusScore(newBooking.getCustomerId(),newBooking.getDistance());
+            return  ResponseEntity.ok(newBooking);
         } else {
             return ResponseEntity.badRequest().body("Failure");
         }
     }
 
     @GetMapping("/history/{customerId}")
-    public ResponseEntity getAllBookingByCustomer(@RequestHeader String Authorization,@PathVariable(value = "customerId") String customerId){
-        System.out.println("Header: "+Authorization);
+    public ResponseEntity getAllBookingsByCustomer(@RequestHeader String currentId,@PathVariable(value = "customerId") String customerId){
+        if(!currentId.equals(customerId))
+            return ResponseEntity.badRequest().body("Customer Id mismatch");
+
         System.out.println("GET all booking by customerId: "+ customerId);
         List<Booking> list =  bookingRepository.findBookingByCustomerId(customerId);
                 //.stream().filter(x-> x.getStatus().equals("completed")).collect(Collectors.toList());
@@ -215,9 +237,12 @@ public class RentController {
     }
 
     @GetMapping("/now/{customerid}")
-    public ResponseEntity getCurrentBookingById(@RequestHeader String Authorization,@PathVariable(value = "customerid") String customerId){
-        System.out.println("Header: "+Authorization);
+    public ResponseEntity getCurrentBookingById(@RequestHeader String currentId,@PathVariable(value = "customerid") String customerId){
         System.out.println("GET current booking by customerId: "+ customerId);
+        if(!currentId.equals(customerId)){
+            System.out.println("Customer Id mismatch: "+currentId);
+            return ResponseEntity.badRequest().body("Customer Id mismatch");
+        }
         List<Booking> list =  bookingRepository.findBookingByCustomerId(customerId)
                                 .stream().filter(x->
                                 x.getStatus().equals("reserved") ||
@@ -229,6 +254,15 @@ public class RentController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    public void addBonusScore(String customerId, Integer distance){
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8100/bonus?" +
+                "customerId="+customerId+"&"+
+                "payloadDistance="+distance;
+        restTemplate.put(url,null);
     }
 
 
