@@ -43,8 +43,6 @@ public class CloudGatewayApplication {
                         //.id("location-service")
                         .uri(baseUrl+":8500/"))
 
-
-
                 .build();
     }
 }

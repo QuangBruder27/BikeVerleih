@@ -2,7 +2,7 @@ CREATE TABLE `bikeverleih`.`customer` (
                                         `customer_id` VARCHAR(12) NOT NULL,
                                         `email` VARCHAR(45) NOT NULL,
                                         `name` VARCHAR(20) NOT NULL,
-                                        `password` VARCHAR(12) NOT NULL,
+                                        `password` VARCHAR(256) NOT NULL,
                                         PRIMARY KEY (`customer_id`),
                                         UNIQUE INDEX `email_UNIQUE` (`email` ASC));
 
@@ -17,7 +17,7 @@ VALUES
     "KD0001",
     "email1@gmail.com",
     "Quang1",
-    "1");
+    "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b");
 
 INSERT INTO `bikeverleih`.`customer`
 (

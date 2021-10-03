@@ -36,17 +36,10 @@ public class AuthController {
     @Autowired
     private BikeAuthRepository bikeAuthRepository;
 
-    @GetMapping("/hello")
-    public String helloWorld() {
-        return "HELLO World!!!";
-    }
-
+    // Request 1
     @GetMapping("/check/{token}")
     public String checkToken(@PathVariable("token") String token) {
         System.out.println("GET checkToken by Auth Service");
-
-        //keyStore.put("default token","nguyen");
-
         System.out.println(keyStore.toString());
         if (keyStore.containsKey(token)){
             return keyStore.get(token);
@@ -55,6 +48,7 @@ public class AuthController {
         }
     }
 
+    // Request 2
     @PostMapping("/bikelogin")
     public ResponseEntity getTokenForBike(@RequestParam String bikeId,
                                    @RequestParam String password) {
@@ -74,6 +68,7 @@ public class AuthController {
         }
     }
 
+    // Request 3
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getTokenForCustomer(@RequestBody Customer payloadCustomer) {
         System.out.println("User: "+payloadCustomer);
@@ -98,15 +93,7 @@ public class AuthController {
         }
     }
 
-    public String createCustomerId(){
-        String randomID = "KD"+ThreadLocalRandom.current().nextInt(1000, 9999 + 1);
-        if (!customerRepository.existsById(randomID)){
-            return  randomID;
-        } else {
-            return createCustomerId();
-        }
-    }
-
+    // Request 4
     @PostMapping("/register")
     public ResponseEntity createCustomerAccount(@RequestBody Customer payloadCustomer) {
         System.out.println("Create new account for customer");
@@ -124,15 +111,17 @@ public class AuthController {
             System.out.println("payloadUser: "+payloadCustomer);
             Customer newCustomer = customerRepository.save(payloadCustomer);
             if(newCustomer != null){
+                System.out.println("Create a new bonus account for customer");
                 // Create bonus account for customer
                 RestTemplate restTemplate = new RestTemplate();
-                String url = baseUrl+ ":8200/bonus";
+                String url = baseUrl+ ":8200/bonus/create";
                 MultiValueMap<String, String> parametersMap = new LinkedMultiValueMap<String, String>();
 
                 System.out.println("CUSTOMER ID = "+newCustomer.getCustomerId());
                 parametersMap.add("customerId",String.valueOf(newCustomer.getCustomerId()));
-
-                String response = restTemplate.postForObject(url,parametersMap,String.class);
+                // don't call bonus service by testing
+                if (!payloadCustomer.getEmail().equals("tester@gmail.com"))
+                restTemplate.postForObject(url,parametersMap,String.class);
 
                 Map<String,String> map = new HashMap<>();
                 map.put("token", generateAuthToken(newCustomer));
@@ -144,6 +133,16 @@ public class AuthController {
                 System.out.println("User cannot be authenticated");
                 return ResponseEntity.status(Response.SC_UNAUTHORIZED).body("User cannot be authenticated");
             }
+        }
+    }
+
+
+    public String createCustomerId(){
+        String randomID = "KD"+ThreadLocalRandom.current().nextInt(1000, 9999 + 1);
+        if (!customerRepository.existsById(randomID)){
+            return  randomID;
+        } else {
+            return createCustomerId();
         }
     }
 

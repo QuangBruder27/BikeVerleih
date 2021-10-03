@@ -1,6 +1,6 @@
 CREATE TABLE `bikeverleih`.`bike_location` (
                                           `id` INT NOT NULL AUTO_INCREMENT,
-                                          `bike_id` VARCHAR(45) NOT NULL,
+                                          `bike_id` VARCHAR(20) NOT NULL,
                                           `latitude` VARCHAR(20) NOT NULL,
                                           `longtitude` VARCHAR(20) NOT NULL,
                                           `time_created` DATETIME NOT NULL,

@@ -4,25 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e93d294-c9aa-41c6-a973-0f88c5d6d063" name="Default Changelist" comment="update Auth-Service Properties">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="6e93d294-c9aa-41c6-a973-0f88c5d6d063" name="Default Changelist" comment="update 19.09">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/htwb/ai/authservice/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/htwb/ai/authservice/Controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonus-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/htwb/ai/authservice/Entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/java/htwb/ai/authservice/Entity/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth-service/src/test/java/htwb/ai/authservice/AuthServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth-service/src/test/java/htwb/ai/authservice/AuthServiceApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bonus-service/src/main/java/htwb/ai/bonusservice/Controller/BonusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/src/main/java/htwb/ai/bonusservice/Controller/BonusController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonus-service/src/main/java/htwb/ai/bonusservice/Entity/Bonus.java" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/src/main/java/htwb/ai/bonusservice/Entity/Bonus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bonus-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bonus-service/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bonus-service/src/test/java/htwb/ai/bonusservice/BonusServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/bonus-service/src/test/java/htwb/ai/bonusservice/BonusServiceApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-gateway/src/main/java/htwb/ai/cloudgateway/CloudGatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-gateway/src/main/java/htwb/ai/cloudgateway/CloudGatewayApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-gateway/src/main/java/htwb/ai/cloudgateway/MyFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-gateway/src/main/java/htwb/ai/cloudgateway/MyFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/location-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-gateway/src/test/java/htwb/ai/cloudgateway/CloudGatewayApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-gateway/src/test/java/htwb/ai/cloudgateway/CloudGatewayApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eureka-server/src/test/java/htwb/ai/eurekaserver/EurekaServerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/eureka-server/src/test/java/htwb/ai/eurekaserver/EurekaServerApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/location-service/src/main/java/htwb/ai/locationservice/Controller/LocationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/src/main/java/htwb/ai/locationservice/Controller/LocationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/location-service/src/main/java/htwb/ai/locationservice/Entity/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/src/main/java/htwb/ai/locationservice/Entity/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rent-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/location-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/location-service/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/location-service/src/test/java/htwb/ai/locationservice/LocationServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/location-service/src/test/java/htwb/ai/locationservice/LocationServiceApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Controller/RentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Controller/RentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Entity/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Entity/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/src/main/java/htwb/ai/rentservice/Helper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/report-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/report-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rent-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rent-service/src/main/resources/dataforrent.sql" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/src/main/resources/dataforrent.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rent-service/src/test/java/htwb/ai/rentservice/RentServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/rent-service/src/test/java/htwb/ai/rentservice/RentServiceApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/report-service/src/main/java/htwb/ai/reportservice/Controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/report-service/src/main/java/htwb/ai/reportservice/Controller/ReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report-service/src/main/java/htwb/ai/reportservice/DAO/ReportDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report-service/src/main/java/htwb/ai/reportservice/Handler/IReportHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/report-service/src/main/java/htwb/ai/reportservice/ReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/report-service/src/main/java/htwb/ai/reportservice/Repo/ReportRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report-service/src/test/java/htwb/ai/reportservice/ReportServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/report-service/src/test/java/htwb/ai/reportservice/ReportServiceApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +47,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -71,7 +82,9 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1xbbTBfNPTUuOlaI4y1zprqbgKg" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -86,6 +99,8 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="jdk.selected.JAVA_MODULE" value="11" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -94,7 +109,7 @@
     <property name="project.structure.side.proportion" value="0.15174508" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="scala_project_settings_configurable.last_selected_tab_index" value="0" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
@@ -107,6 +122,13 @@
       <recent name="C:\Users\cfop2\Desktop\Abschlussarbeit\Demo\location-service\src\main\resources" />
       <recent name="C:\Users\cfop2\Desktop\Abschlussarbeit\Demo\rent-service\src\main\resources" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="htwb.ai.reportservice.Controller" />
+      <recent name="htwb.ai.reportservice.DAO" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -115,10 +137,82 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.CloudGatewayApplication">
-    <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
-      <module name="auth-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="htwb.ai.authservice.AuthServiceApplication" />
+  <component name="RunManager" selected="JUnit.CloudGatewayApplicationTests.testWithVaildTokenShouldRouted">
+    <configuration name="CloudGatewayApplicationTests.testWithVaildTokenShouldRouted" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="cloud-gateway" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="htwb.ai.cloudgateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="htwb.ai.cloudgateway" />
+      <option name="MAIN_CLASS_NAME" value="htwb.ai.cloudgateway.CloudGatewayApplicationTests" />
+      <option name="METHOD_NAME" value="testWithVaildTokenShouldRouted" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CloudGatewayApplicationTests.testWithoutTokenShould401" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="cloud-gateway" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="htwb.ai.cloudgateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="htwb.ai.cloudgateway" />
+      <option name="MAIN_CLASS_NAME" value="htwb.ai.cloudgateway.CloudGatewayApplicationTests" />
+      <option name="METHOD_NAME" value="testWithoutTokenShould401" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReportServiceApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="report-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="htwb.ai.reportservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="htwb.ai.reportservice" />
+      <option name="MAIN_CLASS_NAME" value="htwb.ai.reportservice.ReportServiceApplicationTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReportServiceApplicationTests.postReportTest400IdMismatch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="report-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="htwb.ai.reportservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="htwb.ai.reportservice" />
+      <option name="MAIN_CLASS_NAME" value="htwb.ai.reportservice.ReportServiceApplicationTests" />
+      <option name="METHOD_NAME" value="postReportTest400IdMismatch" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReportServiceApplicationTests.postReportTest400WrongFormat" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="report-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="htwb.ai.reportservice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="htwb.ai.reportservice" />
+      <option name="MAIN_CLASS_NAME" value="htwb.ai.reportservice.ReportServiceApplicationTests" />
+      <option name="METHOD_NAME" value="postReportTest400WrongFormat" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -167,7 +261,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.AuthServiceApplication" />
+        <item itemvalue="JUnit.CloudGatewayApplicationTests.testWithVaildTokenShouldRouted" />
+        <item itemvalue="JUnit.CloudGatewayApplicationTests.testWithoutTokenShould401" />
+        <item itemvalue="JUnit.ReportServiceApplicationTests" />
+        <item itemvalue="JUnit.ReportServiceApplicationTests.postReportTest400WrongFormat" />
+        <item itemvalue="JUnit.ReportServiceApplicationTests.postReportTest400IdMismatch" />
       </list>
     </recent_temporary>
   </component>
@@ -207,6 +305,19 @@
       <workItem from="1631575275446" duration="14814000" />
       <workItem from="1631614340003" duration="51157000" />
       <workItem from="1631861577974" duration="634000" />
+      <workItem from="1632047602725" duration="531000" />
+      <workItem from="1632337044143" duration="2125000" />
+      <workItem from="1632390812148" duration="5966000" />
+      <workItem from="1632429645499" duration="6962000" />
+      <workItem from="1632571652757" duration="943000" />
+      <workItem from="1632693744205" duration="420000" />
+      <workItem from="1632726640665" duration="360000" />
+      <workItem from="1632727047744" duration="22208000" />
+      <workItem from="1632799076833" duration="1022000" />
+      <workItem from="1632800999103" duration="9072000" />
+      <workItem from="1632863237215" duration="56295000" />
+      <workItem from="1633004983459" duration="2604000" />
+      <workItem from="1633232171840" duration="31000" />
     </task>
     <task id="LOCAL-00001" summary="update 14.09.2021">
       <created>1631584868640</created>
@@ -229,7 +340,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631588086756</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update 19.09">
+      <created>1632047748026</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1632047748026</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -251,6 +369,11 @@
     <MESSAGE value="update 14.09.2021" />
     <MESSAGE value="update JAR package 14.09.2021" />
     <MESSAGE value="update Auth-Service Properties" />
-    <option name="LAST_COMMIT_MESSAGE" value="update Auth-Service Properties" />
+    <MESSAGE value="update 19.09" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 19.09" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

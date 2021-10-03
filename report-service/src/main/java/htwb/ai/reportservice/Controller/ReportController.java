@@ -1,15 +1,14 @@
 package htwb.ai.reportservice.Controller;
 
 import htwb.ai.reportservice.Entity.Report;
-import htwb.ai.reportservice.Handler.IReportHandler;
+import htwb.ai.reportservice.Repo.ReportRepository;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,22 +19,70 @@ import java.util.List;
 @RequestMapping("/report")
 public class ReportController {
 
-    private IReportHandler handler;
+    static String baseUrl = "http://localhost";
 
     @Autowired
-    public ReportController(IReportHandler iReportHandler){
-        handler = iReportHandler;
+    private ReportRepository reportRepository;
+
+    // Request 1
+    @PostMapping
+    public ResponseEntity postReport(@RequestHeader String currentId,
+                                     @RequestBody Report payloadReport) {
+        if(!currentId.equals(payloadReport.getCustomerId()))
+            return ResponseEntity.badRequest().body("Customer Id mismatch");
+
+        System.out.println("post mapping func: "+payloadReport);
+        if(!payloadReport.isAcceptable()){
+            return ResponseEntity.badRequest().body("Wrong format");
+        }
+        Report newReport = reportRepository.save(payloadReport);
+        if (null != newReport) {
+            System.out.println("success");
+            addPoints(5,newReport);
+            return ResponseEntity.ok(newReport);
+        } else {
+            System.out.println("add fails");
+            return ResponseEntity.badRequest().body("Adding fails");
+        }
     }
 
-    /**
-     * GET /report
-     *
-     * @return the collection of the report
-     */
-    @GetMapping()
-    public List<Report> getAll(){
-        return handler.findAll();
+
+    // Request 2
+    @PutMapping(value="/{reportId}")
+    public ResponseEntity uploadImageToReport(@RequestHeader String Authorization,
+                                              @RequestParam("image") MultipartFile image,
+                                              @PathVariable(value="reportId") String id) throws IOException {
+        System.out.println("Header: "+Authorization);
+        System.out.println("uploadImageToReport func");
+        if (image == null || image.isEmpty()) return ResponseEntity.badRequest().body("Wrong format");
+        if (reportRepository.existsById(id)) {
+            Report newReport = reportRepository.findByReportId(id);
+            newReport.setImage(new Binary(BsonBinarySubType.BINARY, image.getBytes()));
+            Report lastReport = reportRepository.save(newReport);
+            if(null != lastReport){
+                System.out.println("success");
+                addPoints(5,newReport);
+                return ResponseEntity.created(URI.create("/report/" + newReport.getReportId())).build();
+            } else {
+                System.out.println("upload Image fails");
+                return ResponseEntity.badRequest().body("upload fails");
+            }
+
+        } else {
+            System.out.println("Not found");
+            return ResponseEntity.notFound().build();
+        }
     }
+
+
+    public void addPoints(Integer point, Report report){
+        if (report.getCustomerId().equals("Tester")) return;
+        RestTemplate restTemplate = new RestTemplate();
+        String url = baseUrl+ ":8200/bonus/add/"+report.getCustomerId()+"/"+point;
+        restTemplate.exchange(url, HttpMethod.PUT, null, String.class);
+    }
+
+
 
     /**
      * GET /report/id
@@ -55,79 +102,6 @@ public class ReportController {
 
      */
 
-    /**
-     * DELETE /report/id
-     * remove the specified report
-     * @param id
-     * @return ResponseEntity
-     */
-    /*
-    @DeleteMapping(value="/{id}")
-    public ResponseEntity deleteReport(@PathVariable("id") ObjectId id) {
-        System.out.println("delete Report func");
-        if (handler.deleteReport(id.toString())) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-
-     */
-
-    /**
-     * POST /report
-     * Add the new report
-     * @param
-     * @return ResponseEntity with the location of new report in body if successful.
-     */
-    @PostMapping
-    public ResponseEntity postReport(@RequestHeader String currentId,@RequestBody Report payloadReport) {
-        if(!currentId.equals(payloadReport.getCustomerId()))
-            return ResponseEntity.badRequest().body("Customer Id mismatch");
-
-        System.out.println("post mapping func: "+payloadReport);
-        if(!payloadReport.isAcceptable()){
-            System.out.println("Not accepted.");
-            return ResponseEntity.badRequest().body("Wrong format");
-        }
-        Report newReport = handler.addReport(payloadReport);
-        if (null != newReport) {
-            System.out.println("success");
-            return ResponseEntity.ok(newReport);
-        } else {
-            System.out.println("add fails");
-            return ResponseEntity.badRequest().body("Adding fails");
-        }
-    }
-
-
-    /*
-    @PutMapping(value="/{reportId}")
-    public ResponseEntity uploadImageToReport(@RequestHeader String Authorization,
-                                              @RequestParam("image") MultipartFile image,
-                                              @PathVariable(value="reportId") String id) throws IOException {
-        System.out.println("Header: "+Authorization);
-        System.out.println("uploadImageToReport func");
-        if (image == null || image.isEmpty()) return ResponseEntity.badRequest().body("Wrong format");
-        if (handler.isExisting(id)) {
-            Report newReport = handler.findReportById(id);
-            newReport.setImage(new Binary(BsonBinarySubType.BINARY, image.getBytes()));
-            boolean isSucced = handler.updateReport(newReport);
-            if(isSucced){
-                System.out.println("success");
-                return ResponseEntity.created(URI.create("/report/" + newReport.getReportId())).build();
-            } else {
-                System.out.println("upload Image fails");
-                return ResponseEntity.badRequest().body("upload fails");
-            }
-
-        } else {
-            System.out.println("Not found");
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-     */
 
 
 

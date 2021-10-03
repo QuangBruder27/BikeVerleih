@@ -18,12 +18,14 @@ public class BonusController {
     @Autowired
     private BonusRepository repository;
 
+    // Request 1
     @GetMapping("/{customerId}")
     public ResponseEntity getBonusByCustomerId(@RequestHeader String currentId,
                                                @PathVariable(value = "customerId") String customerId){
         System.out.println("GET bonus score by customerId: "+customerId);
+        System.out.println("CurrentId: "+currentId);
+
         if (!currentId.equals(customerId)){
-            System.out.println("CurrentId: "+currentId);
             System.out.println("Customer Id mismatch");
             return ResponseEntity.badRequest().body("Customer Id mismatch");
         }
@@ -36,17 +38,20 @@ public class BonusController {
             return  ResponseEntity.notFound().build();
         }
     }
-
-    @PutMapping("")
-    public ResponseEntity updateBonusScore(@HeaderParam("currentId") String currentId,@RequestParam String customerId,
-                                           @RequestParam String payloadDistance){
+    // Request 2
+    @PutMapping("/plus/{customerId}/{payloadDistance}")
+    public ResponseEntity addBonusScoreByRent(@HeaderParam("currentId") String currentId,
+                                           @PathVariable String customerId,
+                                           @PathVariable String payloadDistance){
         System.out.println("Put bonus ");
         System.out.println("Distance = "+payloadDistance);
+        System.out.println("CurrentId: "+currentId);
+        System.out.println("CustomerId: "+customerId);
 
         if (null != currentId)  return ResponseEntity.status(Response.SC_METHOD_NOT_ALLOWED).build();
 
-        if (customerId.isEmpty() || !repository.existsById(customerId)  ||  payloadDistance == null){
-            System.out.println("payload error");
+        if (customerId.isEmpty() ||!repository.existsById(customerId)  ||  payloadDistance == null){
+            System.out.println("error");
             return ResponseEntity.badRequest().body("Failure");
         }
         Integer distance = Integer.valueOf(payloadDistance);
@@ -62,8 +67,13 @@ public class BonusController {
         }
     }
 
-    @PostMapping("")
-    public ResponseEntity createBonusAccount(@HeaderParam("currentId") String currentId,@RequestParam String customerId){
+    // Request 3
+    @PostMapping("/create")
+    public ResponseEntity createBonusAccount(@HeaderParam("currentId") String currentId,
+                                             @RequestParam String customerId){
+        System.out.println("Bonus Service: Create Bonus Account");
+        System.out.println("CurrentId: "+currentId);
+        System.out.println("CustomerId: "+customerId);
         if (null != currentId)
             return ResponseEntity.status(Response.SC_METHOD_NOT_ALLOWED).build();
 
@@ -79,5 +89,31 @@ public class BonusController {
         }
     }
 
+    // Request 4
+    @PutMapping("/add/{customerId}/{point}")
+    public ResponseEntity addBonusScoreByReport(@HeaderParam("currentId") String currentId,
+                                           @PathVariable String customerId,
+                                           @PathVariable Integer point){
+        System.out.println("Put bonus score ");
+        System.out.println("customerId: "+customerId);
+
+        if (null != currentId)  return ResponseEntity.status(Response.SC_METHOD_NOT_ALLOWED).build();
+
+        if (customerId.isEmpty() || !repository.existsById(customerId)){
+            System.out.println("payload error");
+            return ResponseEntity.badRequest().body("Failure");
+        }
+
+        if (point>0){
+        Bonus bonusAccount =  repository.findByCustomerId(customerId);
+        Integer lastScore = bonusAccount.getScore();
+        Integer newScore = lastScore + point;
+        bonusAccount.setScore(newScore);
+        Bonus newBonus = repository.save(bonusAccount);
+        return ResponseEntity.ok().contentType( MediaType.APPLICATION_JSON).body(newBonus);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 }

@@ -1,4 +1,4 @@
-package htwb.ai.reportservice;
+package htwb.ai.reportservice.Repo;
 
 import htwb.ai.reportservice.Entity.Report;
 import org.springframework.data.mongodb.repository.MongoRepository;

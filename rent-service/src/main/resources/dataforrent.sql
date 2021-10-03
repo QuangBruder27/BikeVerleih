@@ -1,5 +1,5 @@
 CREATE TABLE `bikeverleih`.`bike_rent` (
-                                      `bike_id` VARCHAR(45) NOT NULL,
+                                      `bike_id` VARCHAR(20) NOT NULL,
                                       `status` ENUM('available', 'reserved', 'damaged') NOT NULL,
                                       `pin` INT NULL,
                                       `latitude` VARCHAR(20) NOT NULL,
@@ -62,19 +62,22 @@ VALUES ("B018","available", "52.51351291681828", "13.48216341414339");
 
 CREATE TABLE `bikeverleih`.`booking` (
                                        `id` INT NOT NULL AUTO_INCREMENT,
-                                       `customer_id` VARCHAR(45) NOT NULL,
-                                       `bike_id` VARCHAR(45) NOT NULL,
+                                       `customer_id` VARCHAR(12) NOT NULL,
+                                       `bike_id` VARCHAR(20) NOT NULL,
                                        `begin_time` DATETIME NULL,
                                        `end_time` DATETIME NULL,
                                        `distance` INT NULL,
                                        `status` ENUM('reserved', 'running', 'completed') NOT NULL,
                                        PRIMARY KEY (`id`));
 
-INSERT INTO `bikeverleih`.`booking`(`customer_id`,`bike_id`,`status`)
-VALUES ("KD0003","B002","reserved");
+INSERT INTO `bikeverleih`.`booking`(`customer_id`,`bike_id`,`status`,`begin_time`)
+VALUES ("KD0003","B002","reserved","2021-09-20 23:30:09");
 
-INSERT INTO `bikeverleih`.`booking`(`customer_id`,`bike_id`,`status`)
-VALUES ("KD0002","B001","reserved");
+INSERT INTO `bikeverleih`.`booking`(`customer_id`,`bike_id`,`status`,`begin_time`)
+VALUES ("KD0002","B001","reserved","2021-09-29 23:30:09");
+
+INSERT INTO `bikeverleih`.`booking`(`customer_id`,`bike_id`,`status`,`begin_time`)
+VALUES ("Tester","B018","reserved","2021-09-29 23:30:09");
 
 INSERT INTO `bikeverleih`.`booking`(`customer_id`,`bike_id`,`status`,`begin_time`,`end_time`, `distance`)
 VALUES ("KD0001","B003","completed","2021-09-07 23:30:09","2021-09-07 23:34:09","5.0");

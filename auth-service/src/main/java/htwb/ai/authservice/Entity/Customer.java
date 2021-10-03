@@ -57,12 +57,14 @@ public class Customer {
         return this.email!= null && !this.email.isEmpty()
                 && this.password != null && !this.password.isEmpty();
     }
+
     @Override
     public String toString() {
         return "Customer{" +
-                "customerId=" + customerId +
+                "customerId='" + customerId + '\'' +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

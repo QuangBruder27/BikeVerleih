@@ -16,7 +16,8 @@ public class LocationController {
     private LocationRepository repository;
 
     @PostMapping("")
-    public ResponseEntity insertLocation(@RequestHeader String currentId,@RequestBody Location payloadLocation) {
+    public ResponseEntity insertLocation(@RequestHeader String currentId,
+                                         @RequestBody Location payloadLocation) {
         if (!payloadLocation.isAcceptable()) {
             return ResponseEntity.badRequest().body("Wrong format");
         }
@@ -26,7 +27,8 @@ public class LocationController {
         Location newLocation = repository.save(payloadLocation);
 
         if(newLocation != null){
-            updateCurrentBikeLocation(newLocation.getBikeId(),newLocation.getLatitude(),newLocation.getLongtitude());
+            if (!newLocation.getBikeId().equals("Tester"))
+                updateCurrentBikeLocation(newLocation.getBikeId(),newLocation.getLatitude(),newLocation.getLongtitude());
                 return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(newLocation);
             } else {
                 return ResponseEntity.badRequest().body("Failure");

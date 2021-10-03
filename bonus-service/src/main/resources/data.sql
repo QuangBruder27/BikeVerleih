@@ -1,5 +1,5 @@
 CREATE TABLE `bikeverleih`.`bonus` (
-                                       `customer_id` VARCHAR(45) NOT NULL,
+                                       `customer_id` VARCHAR(12) NOT NULL,
                                        `score` INT NOT NULL,
                                        PRIMARY KEY (`customer_id`));
 
