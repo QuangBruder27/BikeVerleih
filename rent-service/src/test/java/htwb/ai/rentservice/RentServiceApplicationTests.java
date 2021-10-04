@@ -322,10 +322,10 @@ class RentServiceApplicationTests {
     // Request 7
     @Test
     void getCurrentBookingByCustomerIdTest200(){
-        String url = "/rent/now/KD0002";
+        String url = "/rent/now/Tester";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("currentId", "KD0002");
+        headers.add("currentId", "Tester");
         HttpEntity<String> entity = new HttpEntity<String>("", headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         System.out.println("Result: "+response);
