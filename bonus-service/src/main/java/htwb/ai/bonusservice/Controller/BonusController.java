@@ -43,7 +43,7 @@ public class BonusController {
     public ResponseEntity addBonusScoreByRent(@HeaderParam("currentId") String currentId,
                                            @PathVariable String customerId,
                                            @PathVariable String payloadDistance){
-        System.out.println("Put bonus ");
+        System.out.println("Put bonus score by Rent");
         System.out.println("Distance = "+payloadDistance);
         System.out.println("CurrentId: "+currentId);
         System.out.println("CustomerId: "+customerId);
@@ -63,7 +63,7 @@ public class BonusController {
             Bonus newBonus = repository.save(bonus);
             return ResponseEntity.ok().contentType( MediaType.APPLICATION_JSON).body(newBonus);
         } else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("No point");
         }
     }
 

@@ -216,10 +216,8 @@ public class RentController {
         booking.setStatus(BKG_STATUS_COMPLETED);
         booking.setEndTime(payloadBooking.getEndTime());
         booking.setDistance(Integer.valueOf(payloadBooking.getDistance()));
-        System.out.println("Booking Status: "+booking.getStatus());
 
         Booking newBooking = bookingRepository.save(booking);
-        System.out.println("newBooking Status: "+newBooking.getStatus());
 
         Bike bike = bikeRepository.findById(payloadBooking.getBikeId()).get();
         bike.setStatus(BIKE_STATUS_AVAILABLE);
@@ -228,7 +226,7 @@ public class RentController {
 
         if (newBooking != null && newBike!= null){
             System.out.println("CustomerId for Error: "+newBooking.getCustomerId());
-            if (!newBooking.getCustomerId().equals("Tester"))
+            if (!newBooking.getCustomerId().equals("Tester") && newBooking.getDistance()>5)
                 addBonusScore(newBooking.getCustomerId(), newBooking.getDistance());
             return ResponseEntity.ok(newBooking);
 
@@ -280,9 +278,8 @@ public class RentController {
 
     public void addBonusScore(String customerId, Integer distance){
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8100/bonus?" +
-                "customerId="+customerId+"&"+
-                "payloadDistance="+distance;
+        String url = "http://localhost:8200/bonus/plus/"
+                +customerId+"/"+distance;
         restTemplate.put(url,null);
     }
 

@@ -7,7 +7,7 @@ CREATE TABLE `bikeverleih`.`bike_rent` (
                                       PRIMARY KEY (`bike_id`));
 
 INSERT INTO `bikeverleih`.`bike_rent`(`bike_id`, `status`,`latitude`,`longtitude`)
-VALUES ("B001","available","52.50343552336937","13.469401001991985");
+VALUES ("B001","available","52.51357943161985","13.482541018219138");
 
 INSERT INTO `bikeverleih`.`bike_rent`(`bike_id`, `status`,`pin`,`latitude`,`longtitude`)
 VALUES ("B002","reserved",1111, "52.50154157556343","13.478155468056443");
@@ -59,6 +59,9 @@ VALUES ("B017","available", "52.50112968726727","13.49623822102576");
 
 INSERT INTO `bikeverleih`.`bike_rent`(`bike_id`, `status`,`latitude`,`longtitude`)
 VALUES ("B018","available", "52.51351291681828", "13.48216341414339");
+
+INSERT INTO `bikeverleih`.`bike_rent`(`bike_id`, `status`,`latitude`,`longtitude`)
+VALUES ("B666","available", "52.54529240113297", "13.351692379102936");
 
 CREATE TABLE `bikeverleih`.`booking` (
                                        `id` INT NOT NULL AUTO_INCREMENT,

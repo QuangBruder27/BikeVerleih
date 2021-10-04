@@ -62,11 +62,16 @@ VALUES
 (
     "B003",
     "1357");
-INSERT INTO `bikeverleih`.`bike_auth`
-(
-    `bike_id`,
-    `password`)
-VALUES
-(
-    "B004",
-    "1357");
+
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B004","1357");
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B005","1357");
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B006","1357");
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B007","1357");
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B008","1357");
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B009","1357");
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B010","1357");
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B011","1357");
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B012","1357");
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B013","1357");
+
+INSERT INTO `bikeverleih`.`bike_auth`(`bike_id`,`password`) VALUES("B666","1");
