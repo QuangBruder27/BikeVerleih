@@ -71,7 +71,7 @@ public class AuthController {
     // Request 3
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getTokenForCustomer(@RequestBody Customer payloadCustomer) {
-        System.out.println("User: "+payloadCustomer);
+        System.out.println("payloadUser: "+payloadCustomer);
         if (payloadCustomer.getEmail().isEmpty() || payloadCustomer.getPassword().isEmpty()) {
             return ResponseEntity.badRequest().body("Wrong format");
         }
