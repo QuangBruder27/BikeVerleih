@@ -17,8 +17,7 @@ import org.springframework.util.MultiValueMap;
 import java.util.HashMap;
 import java.util.Map;
 
-import static htwb.ai.rentservice.Helper.BIKE_STATUS_AVAILABLE;
-import static htwb.ai.rentservice.Helper.BKG_STATUS_RESERVED;
+import static htwb.ai.rentservice.Helper.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -213,7 +212,8 @@ class RentServiceApplicationTests {
     @Test
     void endRouteTest200(){
         Booking booking = initBooking();
-        booking.setId(6);
+        booking.setId(3);
+        booking.setStatus(BKG_STATUS_COMPLETED);
         booking.setBikeId("B018");
         booking.setEndTime("2021-09-30 10:34:09");
         booking.setDistance(15);
@@ -227,6 +227,7 @@ class RentServiceApplicationTests {
         assertTrue(response.getStatusCode().value() == 200);
         Booking newBooking = response.getBody();
         newBooking.setStatus(BKG_STATUS_RESERVED);
+        newBooking.setDistance(0);
         bookingRepository.save(newBooking);
     }
 

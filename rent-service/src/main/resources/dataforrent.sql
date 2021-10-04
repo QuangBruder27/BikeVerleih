@@ -67,7 +67,7 @@ CREATE TABLE `bikeverleih`.`booking` (
                                        `begin_time` DATETIME NULL,
                                        `end_time` DATETIME NULL,
                                        `distance` INT NULL,
-                                       `status` ENUM('reserved', 'running', 'completed') NOT NULL,
+                                       `status` ENUM('reserved', 'running', 'completed')  NULL,
                                        PRIMARY KEY (`id`));
 
 INSERT INTO `bikeverleih`.`booking`(`customer_id`,`bike_id`,`status`,`begin_time`)

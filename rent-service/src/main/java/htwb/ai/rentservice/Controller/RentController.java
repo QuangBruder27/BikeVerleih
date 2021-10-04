@@ -211,11 +211,15 @@ public class RentController {
             return ResponseEntity.badRequest().body("Bike Id mismatch");
 
         Booking booking = bookingRepository.findById(payloadBooking.getId()).get();
+        System.out.println("Booking from findById: "+booking);
 
         booking.setStatus(BKG_STATUS_COMPLETED);
         booking.setEndTime(payloadBooking.getEndTime());
         booking.setDistance(Integer.valueOf(payloadBooking.getDistance()));
+        System.out.println("Booking Status: "+booking.getStatus());
+
         Booking newBooking = bookingRepository.save(booking);
+        System.out.println("newBooking Status: "+newBooking.getStatus());
 
         Bike bike = bikeRepository.findById(payloadBooking.getBikeId()).get();
         bike.setStatus(BIKE_STATUS_AVAILABLE);
@@ -223,6 +227,7 @@ public class RentController {
         Bike newBike = bikeRepository.save(bike);
 
         if (newBooking != null && newBike!= null){
+            System.out.println("CustomerId for Error: "+newBooking.getCustomerId());
             if (!newBooking.getCustomerId().equals("Tester"))
                 addBonusScore(newBooking.getCustomerId(), newBooking.getDistance());
             return ResponseEntity.ok(newBooking);
