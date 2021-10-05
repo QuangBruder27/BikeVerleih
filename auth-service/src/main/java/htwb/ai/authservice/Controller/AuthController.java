@@ -36,7 +36,12 @@ public class AuthController {
     @Autowired
     private BikeAuthRepository bikeAuthRepository;
 
-    // Request 1
+    /**
+     * Request 1
+     * Check the token
+     * @param token
+     * @return
+     */
     @GetMapping("/check/{token}")
     public String checkToken(@PathVariable("token") String token) {
         System.out.println("GET checkToken by Auth Service");
@@ -48,7 +53,13 @@ public class AuthController {
         }
     }
 
-    // Request 2
+    /**
+     * Request 2
+     * login for bike
+     * @param bikeId
+     * @param password
+     * @return
+     */
     @PostMapping("/bikelogin")
     public ResponseEntity getTokenForBike(@RequestParam String bikeId,
                                    @RequestParam String password) {
@@ -68,7 +79,12 @@ public class AuthController {
         }
     }
 
-    // Request 3
+    /**
+     * Request 3
+     * login for user
+     * @param payloadCustomer
+     * @return
+     */
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getTokenForCustomer(@RequestBody Customer payloadCustomer) {
         System.out.println("payloadUser: "+payloadCustomer);
@@ -93,7 +109,12 @@ public class AuthController {
         }
     }
 
-    // Request 4
+    /**
+     * Request 4
+     * register the new account
+     * @param payloadCustomer
+     * @return
+     */
     @PostMapping("/register")
     public ResponseEntity createCustomerAccount(@RequestBody Customer payloadCustomer) {
         System.out.println("Create new account for customer");
@@ -136,7 +157,9 @@ public class AuthController {
         }
     }
 
-
+    /**
+     * create a random number for id
+     */
     public String createCustomerId(){
         String randomID = "KD"+ThreadLocalRandom.current().nextInt(1000, 9999 + 1);
         if (!customerRepository.existsById(randomID)){

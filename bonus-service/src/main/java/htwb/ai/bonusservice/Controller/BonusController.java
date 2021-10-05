@@ -18,7 +18,13 @@ public class BonusController {
     @Autowired
     private BonusRepository repository;
 
-    // Request 1
+    /**
+     * Request 1
+     * get the bonus point of user by the id
+     * @param currentId
+     * @param customerId
+     * @return
+     */
     @GetMapping("/{customerId}")
     public ResponseEntity getBonusByCustomerId(@RequestHeader String currentId,
                                                @PathVariable(value = "customerId") String customerId){

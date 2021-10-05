@@ -169,33 +169,6 @@ public class RentController {
     }
 
     // Request 4
-    @PutMapping("/updatebikelocation")
-    public ResponseEntity updateBikeLocation(@HeaderParam("currentId") String currentId,
-                                             @RequestParam String bikeId,
-                                             @RequestParam String latitude,
-                                             @RequestParam String longtitude){
-        if (null != currentId)  return ResponseEntity.status(Response.SC_METHOD_NOT_ALLOWED).build();
-
-        System.out.println("Update Bike Location: "+ latitude+","+longtitude);
-        if(latitude.isEmpty() || longtitude.isEmpty() || bikeId.isEmpty()){
-            return ResponseEntity.badRequest().body("Failure");
-        }
-        if (!bikeRepository.existsById(bikeId)){
-            return ResponseEntity.badRequest().body("Wrong bike id");
-        }
-        Bike bike = bikeRepository.findById(bikeId).get();
-        bike.setLatitude(latitude);
-        bike.setLongtitude(longtitude);
-        Bike newBike = bikeRepository.save(bike);
-
-        if (newBike != null){
-            return  ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.badRequest().body("Failure");
-        }
-    }
-
-    // Request 5
     @PutMapping("/end")
     public ResponseEntity endRoute(@RequestHeader String currentId,
                                    @RequestBody Booking payloadBooking){
@@ -230,6 +203,33 @@ public class RentController {
                 addBonusScore(newBooking.getCustomerId(), newBooking.getDistance());
             return ResponseEntity.ok(newBooking);
 
+        } else {
+            return ResponseEntity.badRequest().body("Failure");
+        }
+    }
+
+    // Request 5
+    @PutMapping("/updatebikelocation")
+    public ResponseEntity updateBikeLocation(@HeaderParam("currentId") String currentId,
+                                             @RequestParam String bikeId,
+                                             @RequestParam String latitude,
+                                             @RequestParam String longtitude){
+        if (null != currentId)  return ResponseEntity.status(Response.SC_METHOD_NOT_ALLOWED).build();
+
+        System.out.println("Update Bike Location: "+ latitude+","+longtitude);
+        if(latitude.isEmpty() || longtitude.isEmpty() || bikeId.isEmpty()){
+            return ResponseEntity.badRequest().body("Failure");
+        }
+        if (!bikeRepository.existsById(bikeId)){
+            return ResponseEntity.badRequest().body("Wrong bike id");
+        }
+        Bike bike = bikeRepository.findById(bikeId).get();
+        bike.setLatitude(latitude);
+        bike.setLongtitude(longtitude);
+        Bike newBike = bikeRepository.save(bike);
+
+        if (newBike != null){
+            return  ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().body("Failure");
         }
