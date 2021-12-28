@@ -7,4 +7,4 @@ Bike rental systems offer customers the option of renting a bike when using a mo
 bikes or if the distance traveled is more than 5 km. This bachelor thesis deals with the development of bicycle rental systems consisting of a backend server, a mobile
 application for customers and a mobile application for bicycles.
 
-<img src="img/BackenServer.png" width="700">
+<img src="img/BackendServer.png" width="700">
