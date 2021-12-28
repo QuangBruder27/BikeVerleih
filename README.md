@@ -14,7 +14,7 @@ The customer app is responsible for registering, navigating to available bicycle
 
 Quellcode: https://github.com/QuangBruder27/BikeCustomer
 
-<img src="img/customerApp.png" width="500">
+<img src="img/customerApp.png" width="600">
 
 
 
@@ -22,5 +22,5 @@ The main task of the Bike-App is to send the entered PIN code and calculate the 
 
 Quellcode: https://github.com/QuangBruder27/RentalBike
 
-<img src="img/bikeApp.png" width="500">
+<img src="img/bikeApp.png" width="600">
 
