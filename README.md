@@ -12,7 +12,7 @@ application for customers and a mobile application for bicycles.
 
 The customer app is responsible for registering, navigating to available bicycles and renting bicycles.
 
-Quellcode: https://github.com/QuangBruder27/BikeCustomer
+Source: https://github.com/QuangBruder27/BikeCustomer
 
 <img src="img/customerApp.png" width="600">
 
@@ -20,7 +20,7 @@ Quellcode: https://github.com/QuangBruder27/BikeCustomer
 
 The main task of the Bike-App is to send the entered PIN code and calculate the ride time and distance traveled.
 
-Quellcode: https://github.com/QuangBruder27/RentalBike
+Source: https://github.com/QuangBruder27/RentalBike
 
 <img src="img/bikeApp.png" width="600">
 
