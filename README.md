@@ -9,7 +9,9 @@ application for customers and a mobile application for bicycles.
 
 <img src="img/BackendServer.png" width="700">
 
+
 The customer app is responsible for registering, navigating to available bicycles and renting bicycles.
+
 Quellcode: https://github.com/QuangBruder27/BikeCustomer
 
 <img src="img/customerApp.png" width="500">
